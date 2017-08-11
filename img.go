@@ -46,6 +46,7 @@ func Run(change func(p *Pixel)) {
 
 	b := img.Bounds()
 	outImg := image.NewRGBA(b)
+	newW, newH := b.Dx(), b.Dy()
 	for x := b.Min.X; x < b.Max.X; x++ {
 		for y := b.Min.Y; y < b.Max.Y; y++ {
 			c := color.RGBAModel.Convert(img.At(x, y)).(color.RGBA)
@@ -57,8 +58,11 @@ func Run(change func(p *Pixel)) {
 			change(&p)
 			c.R, c.G, c.B, c.A = p.R, p.G, p.B, p.A
 			outImg.SetRGBA(p.X, p.Y, c)
+			newW, newH = p.ImageW, p.ImageH
 		}
 	}
+	outImg.Rect.Max.X = outImg.Rect.Min.X + newW
+	outImg.Rect.Max.Y = outImg.Rect.Min.Y + newH
 
 	var out bytes.Buffer
 
