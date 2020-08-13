@@ -22,6 +22,14 @@ type Pixel struct {
 	R, G, B, A     uint8
 }
 
+func (p *Pixel) SetRGB(r, g, b uint8) {
+	p.SetRGBA(r, g, b, 255)
+}
+
+func (p *Pixel) SetRGBA(r, g, b, a uint8) {
+	p.R, p.G, p.B, p.A = r, g, b, a
+}
+
 func Run(change func(p *Pixel)) {
 	if len(os.Args) < 2 || len(os.Args) > 3 {
 		cmd := filepath.Base(os.Args[0])
