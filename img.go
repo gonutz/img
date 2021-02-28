@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/image/bmp"
+	"github.com/gonutz/bmp"
 )
 
 type Pixel struct {
